@@ -122,4 +122,9 @@ def task_clicked():
         error_code, msg = error.errors(401)
         return render_template('error.html', code = error_code, info = msg)
 
-app.run()
+# For running locally
+# app.run()
+
+# For deploying on the GCP
+if __name__=="__main__":
+    app.run(host="127.0.0.1", port=8080, debug=True)
