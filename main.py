@@ -7,7 +7,7 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 upload = os.getcwd() + "\\uploads"
 
 app = Flask(__name__)
-app.config["DEBUG"] = True
+app.config["DEBUG"] = False
 app.config['UPLOAD_FOLDER'] = upload
 
 def allowed_file(filename):
@@ -122,9 +122,13 @@ def task_clicked():
         error_code, msg = error.errors(401)
         return render_template('error.html', code = error_code, info = msg)
 
-# For running locally
-# app.run()
+# For running locally or deploying on heroku
+if __name__=="__main__":
+    if 'uploads' not in os.listdir():
+        # create "uploads" folder
+        os.mkdir("uploads")
+    app.run()
 
 # For deploying on the GCP
-if __name__=="__main__":
-    app.run(host="127.0.0.1", port=8080, debug=True)
+# if __name__=="__main__":
+#     app.run(host="127.0.0.1", port=8080, debug=True)
